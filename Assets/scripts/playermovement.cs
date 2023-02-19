@@ -41,14 +41,16 @@ public class playermovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * speed * Time.deltaTime);
+        //controller.Move(move * speed * Time.deltaTime);
+        transform.position += move * speed * Time.deltaTime;
 
-        velocity.y = gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f);
+        //velocity.y = gravity * Time.deltaTime;
+        //controller.Move(velocity * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            //Jump();
+            Jump();
         }
     }
 
@@ -58,7 +60,7 @@ public class playermovement : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
-            bullet.transform.parent = bulletParent;
+            bullet.transform.parent =   null;
             bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletVelocity;
             Destroy(bullet.gameObject, 5f);
         }

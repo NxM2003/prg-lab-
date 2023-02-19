@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class enmycontrol : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    internal virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             print("Player in range !!Attack!!");
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        else
         {
             print("Player has been lost.");
         }
     }
+
+   
 }
 
 
