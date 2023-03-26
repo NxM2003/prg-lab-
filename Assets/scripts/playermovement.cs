@@ -20,6 +20,7 @@ public class playermovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+     public bool disableMovement;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,19 @@ public class playermovement : MonoBehaviour
             velocity.y = -2f;
         }
 
+       if(! disableMovement)
+        {
+            Walk();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Jump();
+        }
+    }
+
+    void Walk()
+    {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -47,11 +61,6 @@ public class playermovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f);
         //velocity.y = gravity * Time.deltaTime;
         //controller.Move(velocity * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Jump();
-        }
     }
 
     private void Shoot()
